@@ -1,9 +1,4 @@
-  //Contain the design choice clicked on in a variable  
-  const $options = $('#color option');
-  const $themeOption = $("#design").on('change', function(){
-    const value = $(this).val();
-    return(value);
-  });
+$colorOption = $("#color option");
 
 //Focus is set on first text field upon loading of page
 $('#name').focus();
@@ -22,48 +17,35 @@ $('#design').on('click', function(event){
   $("#design option[value='select_theme']").hide();
 });
 
+//Hide color options other than "Please Select a Tshirt Theme"
+$( "#color option" ).each(function( index ) {
+    if ($colorOption === 'select a theme'){
+    $colorOption.prop({selected:true});
+  }else {
+    $("#color option").prop({hidden:true});
+  } 
+});
 
-
-//Change the select options to only "Cornflower Blue," "Dark Slate Grey," and "Gold" when 'js puns' selected
-if ($themeOption === 'js puns'){
-  const $colorSelect = $('#color');  
-  const jsPuns = {
-      "Cornflower Blue": "cornflowerblue",
-      "Dark Slate Grey": "darkslategrey",
-      "Gold": "gold"
-      };
-    
-  $colorSelect.each(jsPuns, function(key, value) {
-     const $option = $("<option/>", {
-        value: value,
-        text: key
+//When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
+$("#design").on('change', function(){
+    const $themeOption = $(this).val();
+    //Change the select options to only "Cornflower Blue," "Dark Slate Grey," and "Gold" when 'js puns' selected
+    if ($themeOption === 'js puns'){
+      $("#color option").each(function(){
+        if($colorOption = 'cornflowerblue' | 'darkslategrey' | 'gold'){
+          $colorOption.prop({selected:true});
+        }
       });
-     $colorSelect.append($option);
-    });
- }else if ($themeOption === 'heart js'){ 
-    //Show only Tomato, Steel Blue, and Dim Grey for 'heart js'
-   const $colorSelect = $('#color'); 
-   const heartJs = {
-      "Tomato": "tomato",
-      "Steel Blue": "steelblue",
-      "Dim Grey": "dimgrey"
-      };
-   
-   $colorSelect.each(heartJs, function(key, value) {
-      const $option = $("<option/>", {
-        value: value,
-        text: key
-      });
-      $colorSelect.append($option);
-    });
- }else {
-    //  Hide all options except for "Please Select a Tshirt Theme" in color dropdown menu
-    $options.slice(1).hide();
-  };
+    };
+//  else if ($themeOption === 'heart js'){ 
+//        //Show only Tomato, Steel Blue, and Dim Grey for 'heart js'
+//       
+//    };
+  });
 
 
 //
-//When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
+
 //
 //
 //”Register for Activities” section
