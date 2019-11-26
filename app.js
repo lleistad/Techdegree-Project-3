@@ -1,4 +1,14 @@
-$colorOption = $("#color option");
+const $colorOption = $("#color option");
+
+//Hide color options other than "Please Select a Tshirt Theme"
+function $hideColors (){ $colorOption.each(function( index ) {
+    if ($colorOption === 'select a theme'){
+    $colorOption.prop({selected:true});
+  }else {
+  $colorOption.prop({hidden:true});
+    } 
+  });
+};
 
 //Focus is set on first text field upon loading of page
 $('#name').focus();
@@ -17,30 +27,22 @@ $('#design').on('click', function(event){
   $("#design option[value='select_theme']").hide();
 });
 
-//Hide color options other than "Please Select a Tshirt Theme"
-$( "#color option" ).each(function( index ) {
-    if ($colorOption === 'select a theme'){
-    $colorOption.prop({selected:true});
-  }else {
-    $("#color option").prop({hidden:true});
-  } 
-});
+$hideColors();
 
 //When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
 $("#design").on('change', function(){
-    const $themeOption = $(this).val();
+    const $themeOption = $(this).children("option:selected").val();
     //Change the select options to only "Cornflower Blue," "Dark Slate Grey," and "Gold" when 'js puns' selected
     if ($themeOption === 'js puns'){
-      $("#color option").each(function(){
-        if($colorOption = 'cornflowerblue' | 'darkslategrey' | 'gold'){
-          $colorOption.prop({selected:true});
+      $('color option').each(function(){
+        if ($colorOption.val() === 'cornflowerblue' && 'darkslategrey' && 'gold'){
+          $colorOption.prop({hidden:false});
         }
       });
+    }else if ($themeOption === 'heart js'){ 
+    //Show only Tomato, Steel Blue, and Dim Grey for 'heart js'
+      
     };
-//  else if ($themeOption === 'heart js'){ 
-//        //Show only Tomato, Steel Blue, and Dim Grey for 'heart js'
-//       
-//    };
   });
 
 
